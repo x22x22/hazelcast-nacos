@@ -39,7 +39,7 @@ public class HazelcastIntegrationTest {
         config.setProperty("hazelcast.discovery.enabled", "true");
 
         DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(new NacosDiscoveryStrategyFactory());
-        discoveryStrategyConfig.addProperty(NacosDiscoveryProperties.SERVER_ADDR.key(), "127.0.0.1:8848");
+        discoveryStrategyConfig.addProperty(NacosDiscoveryProperties.SERVER_ADDR.key(), System.getenv("NACOS_REGISTRY_SERVER_ADDR"));
         discoveryStrategyConfig.addProperty(NacosDiscoveryProperties.APPLICATION_NAME.key(), "hz-server");
         config.getNetworkConfig().getJoin().getDiscoveryConfig().addDiscoveryStrategyConfig(discoveryStrategyConfig);
 

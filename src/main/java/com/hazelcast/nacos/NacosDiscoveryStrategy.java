@@ -25,11 +25,13 @@ import com.hazelcast.logging.ILogger;
 import com.hazelcast.spi.discovery.AbstractDiscoveryStrategy;
 import com.hazelcast.spi.discovery.DiscoveryNode;
 import com.hazelcast.spi.discovery.SimpleDiscoveryNode;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -39,8 +41,8 @@ import java.util.Properties;
  */
 public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
 
-    private static final String DEFAULT_PATH = "discovery-hazelcast";
-    private static final String DEFAULT_GROUP = "hazelcast";
+    private static final String DEFAULT_NAMESPACE = "discovery-hazelcast";
+    private static final String DEFAULT_CLUSTER_NAME = "hazelcast";
 
     private final DiscoveryNode thisNode;
     private final ILogger logger;
@@ -93,11 +95,21 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
     }
 
     private void startCuratorClient() throws NacosException {
-        String serverAddr = getOrNull(NacosDiscoveryProperties.SERVER_ADDR);
-        String namespace = getOrDefault(NacosDiscoveryProperties.NAMESPACE, DEFAULT_PATH);
+        String serverAddr = getOrDefault(NacosDiscoveryProperties.SERVER_ADDR,
+                System.getenv("NACOS_REGISTRY_SERVER_ADDR"));
+        String namespace = getOrDefault(NacosDiscoveryProperties.NAMESPACE,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_NAMESPACE"))
+                        .orElse(DEFAULT_NAMESPACE));
 
-        clusterName = getOrDefault(NacosDiscoveryProperties.CLUSTER_NAME, DEFAULT_GROUP);
-        applicationName = getOrNull(NacosDiscoveryProperties.APPLICATION_NAME);
+        clusterName = getOrDefault(NacosDiscoveryProperties.CLUSTER_NAME,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_NAMESPACE"))
+                .orElse(DEFAULT_CLUSTER_NAME));
+
+        applicationName = getOrDefault(NacosDiscoveryProperties.APPLICATION_NAME,
+                System.getenv("HZ_APPLICATION_NAME"));
+        if (applicationName == null){
+            throw new IllegalStateException("applicationName cannot be null.");
+        }
         clusters.add(clusterName);
 
         if (serverAddr == null) {
