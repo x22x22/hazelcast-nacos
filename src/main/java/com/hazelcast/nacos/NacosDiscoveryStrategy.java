@@ -102,7 +102,7 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
                         .orElse(DEFAULT_NAMESPACE));
 
         clusterName = getOrDefault(NacosDiscoveryProperties.CLUSTER_NAME,
-                Optional.ofNullable(System.getenv("NACOS_REGISTRY_NAMESPACE"))
+                Optional.ofNullable(System.getenv("NACOS_CLUSTER_NAME"))
                 .orElse(DEFAULT_CLUSTER_NAME));
 
         applicationName = getOrDefault(NacosDiscoveryProperties.APPLICATION_NAME,
