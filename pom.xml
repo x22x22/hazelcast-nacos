@@ -63,14 +63,15 @@
     <scm>
         <connection>scm:git:git://github.com/x22x22/hazelcast-nacos.git</connection>
         <developerConnection>scm:git:git@github.com:x22x22/hazelcast-nacos.git</developerConnection>
-        <url>https://github.com/x22x22/hazelcast-nacos/</url>
+        <url>https://github.com/x22x22/hazelcast-nacos/tree/main</url>
     </scm>
 
     <developers>
         <developer>
-            <id>x22x22</id>
             <name>x22x22</name>
             <email>rootshellexp@gmail.com</email>
+            <organization>x22x22</organization>
+            <organizationUrl>http://www.fullstackmemo.com</organizationUrl>
         </developer>
     </developers>
 
@@ -117,7 +118,7 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -191,15 +192,9 @@
     </build>
 
     <distributionManagement>
-        <repository>
-            <id>release-repository</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
         <snapshotRepository>
-            <id>snapshot-repository</id>
-            <name>Maven2 Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -423,11 +418,11 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
+                        <version>1.6.7</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>release-repository</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>

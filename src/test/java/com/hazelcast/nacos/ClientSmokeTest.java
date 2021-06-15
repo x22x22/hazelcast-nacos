@@ -36,8 +36,8 @@ public class ClientSmokeTest extends HazelcastTestSupport {
 
     @Test
     public void testClientCanConnectionToCluster() {
-        String serverAddr = "10.22.0.137:31548";
-        String applicationName = "edsp-server-adm";
+        String serverAddr = "127.0.0.1:8848";
+        String applicationName = "hz-server";
         startCluster(serverAddr, applicationName);
 
         ClientConfig clientConfig = createClientConfig(serverAddr, applicationName);
