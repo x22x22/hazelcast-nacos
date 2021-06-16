@@ -1,4 +1,4 @@
-[![pitest](https://github.com/x22x22/hazelcast-nacos/actions/workflows/pitest.yml/badge.svg)](https://github.com/x22x22/hazelcast-nacos/actions/workflows/pitest.yml)
+[![pitest](https://github.com/x22x22/hazelcast-nacos/actions/workflows/pitest.yml/badge.svg)](http://x22x22.io/hazelcast-nacos/pitest)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.x22x22/hazelcast-nacos/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.x22x22/hazelcast-nacos) 
 
 # Table of Contents
