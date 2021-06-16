@@ -45,7 +45,7 @@ jobs:
       - name: Build with Maven
         run: mvn package
         env:
-          NACOS_REGISTRY_SERVER_ADDR: nacos:8848
+          NACOS_REGISTRY_SERVER_ADDR: 127.0.0.1:8848
 
       - name: Run Mutation Testing
         run: mvn -Ppitest org.pitest:pitest-maven:mutationCoverage
