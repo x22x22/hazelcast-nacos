@@ -50,7 +50,7 @@ jobs:
       - name: Run Mutation Testing
         run: mvn -Ppitest org.pitest:pitest-maven:mutationCoverage
         env:
-          NACOS_REGISTRY_SERVER_ADDR: nacos:8848
+          NACOS_REGISTRY_SERVER_ADDR: 127.0.0.1:8848
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.8.0
