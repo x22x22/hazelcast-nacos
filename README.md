@@ -1,22 +1,24 @@
-  <a href="https://github.com/hazelcast/hazelcast-nacos/actions?query=workflow%3Abuild"><img alt="GitHub Actions status" src="https://github.com/hazelcast/hazelcast-nacos/workflows/build/badge.svg"></a>
-  <a href="https://hazelcast.github.io/hazelcast-nacos/pitest/"><img alt="GitHub Actions status" src="https://github.com/hazelcast/hazelcast-nacos/workflows/pitest/badge.svg"></a>
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.hazelcast/hazelcast-nacos/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.hazelcast/hazelcast-nacos) 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.x22x22/hazelcast-nacos/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.x22x22/hazelcast-nacos) 
 
 # Table of Contents
 
-* [Hazelcast Discovery Plugin for Apache Nacos](#hazelcast-discovery-plugin-for-apache-nacos)
-  * [Configuration](#configuration)
-    * [Server XML Config](#server-xml-config)
-    * [Client XML Config](#client-xml-config)
-    * [Server Programmatic Config](#server-programmatic-config)
-    * [Client Programmatic Config](#client-programmatic-config)
-    * [Configuration via Maven](#configuration-via-maven)
-  * [Compatibilities](#compatibilities)
+- [Table of Contents](#table-of-contents)
+- [Hazelcast Alibaba Nacos Discovery Plugin](#hazelcast-alibaba-nacos-discovery-plugin)
+  - [Configuration](#configuration)
+    - [Server XML Config](#server-xml-config)
+    - [Client XML Config](#client-xml-config)
+    - [Server Programmatic Config](#server-programmatic-config)
+    - [Client Programmatic Config](#client-programmatic-config)
+    - [Configuration via Maven](#configuration-via-maven)
+  - [Compatibilities](#compatibilities)
+    - [Known Issues](#known-issues)
 
 
-# Hazelcast Apache Nacos Discovery Plugin 
+# Hazelcast Alibaba Nacos Discovery Plugin 
 
-This plugin provides a service-based discovery by using Apache Curator to communicate with your Nacos server. 
+**PS:** The repository is base on [hazelcast-zookeeper](https://github.com/hazelcast/hazelcast-zookeeper), thanks!
+
+This plugin provides a service-based discovery by using nacos-client to communicate with your Nacos server. 
 
 You can use this plugin with Discovery SPI enabled Hazelcast 3.6.1 and higher applications.
 
