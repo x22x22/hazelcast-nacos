@@ -36,7 +36,7 @@ public class ClientSmokeTest extends HazelcastTestSupport {
 
     @Test
     public void testClientCanConnectionToCluster() {
-        String serverAddr = System.getenv("NACOS_REGISTRY_SERVER_ADDR");
+        String serverAddr = System.getenv("NACOS_REGISTRY_SERVER_ADDR_TEST");
         String applicationName = "hz-server";
         startCluster(serverAddr, applicationName);
 
