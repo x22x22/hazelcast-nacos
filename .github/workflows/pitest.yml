@@ -46,11 +46,13 @@ jobs:
         run: mvn package
         env:
           NACOS_REGISTRY_SERVER_ADDR: 127.0.0.1:8848
+          HZ_APPLICATION_NAME: HZ_APP
 
       - name: Run Mutation Testing
         run: mvn -Ppitest org.pitest:pitest-maven:mutationCoverage
         env:
           NACOS_REGISTRY_SERVER_ADDR: 127.0.0.1:8848
+          HZ_APPLICATION_NAME: HZ_APP
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.8.0
