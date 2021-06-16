@@ -55,7 +55,7 @@ public class HazelcastIntegrationTest {
     @Test
     public void testIntegration_urlNotConfigured() {
         exception.expect(IllegalStateException.class);
-        exception.expectMessage("Nacos URL cannot be null.");
+        exception.expectMessage("Nacos ServerAddr cannot be null.");
 
         Config config = new Config();
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
