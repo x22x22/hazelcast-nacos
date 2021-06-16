@@ -1,6 +1,5 @@
 package com.hazelcast.nacos;
 
-import com.alibaba.nacos.api.naming.NamingService;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryStrategyConfig;
 import com.hazelcast.core.Hazelcast;
@@ -12,6 +11,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -52,11 +53,28 @@ public class HazelcastIntegrationTest {
         assertEquals(2, instance2Size);
     }
 
+    @SuppressWarnings({"unchecked"})
+    public static void removeEnv(String envName) throws ReflectiveOperationException {
+        Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+        Field theEnvironmentField = processEnvironmentClass.getDeclaredField("theEnvironment");
+        theEnvironmentField.setAccessible(true);
+        Map<String, String> env = (Map<String, String>) theEnvironmentField.get(null);
+        env.remove(envName);
+        Field theCaseInsensitiveEnvironmentField = processEnvironmentClass.getDeclaredField("theCaseInsensitiveEnvironment");
+        theCaseInsensitiveEnvironmentField.setAccessible(true);
+        Map<String, String> cienv = (Map<String, String>) theCaseInsensitiveEnvironmentField.get(null);
+        cienv.remove(envName);
+    }
+
     @Test
     public void testIntegration_urlNotConfigured() {
         exception.expect(IllegalStateException.class);
         exception.expectMessage("Nacos ServerAddr cannot be null.");
-
+        try {
+            removeEnv("NACOS_REGISTRY_SERVER_ADDR");
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
         Config config = new Config();
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
         config.setProperty("hazelcast.discovery.enabled", "true");
