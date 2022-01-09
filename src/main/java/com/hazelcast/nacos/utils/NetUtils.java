@@ -1,8 +1,8 @@
 package com.hazelcast.nacos.utils;
 
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
