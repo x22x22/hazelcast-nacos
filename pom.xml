@@ -20,7 +20,7 @@
     <artifactId>hazelcast-nacos</artifactId>
     <description>Hazelcast Nacos Discovery Plugin</description>
     <url>http://www.hazelcast.com/</url>
-    <version>4.0.2.3</version>
+    <version>4.0.2.4</version>
 
     <licenses>
         <license>

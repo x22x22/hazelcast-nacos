@@ -133,12 +133,13 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
         Properties properties = new Properties();
         properties.setProperty(PropertyKeyConst.SERVER_ADDR, serverAddr);
         properties.setProperty(PropertyKeyConst.NAMESPACE, namespace);
-        properties.setProperty(PropertyKeyConst.USERNAME, username);
-        properties.setProperty(PropertyKeyConst.PASSWORD, password);
-        properties.setProperty(PropertyKeyConst.ACCESS_KEY, accessKey);
-        properties.setProperty(PropertyKeyConst.SECRET_KEY, secretKey);
 
-        String s = InitUtils.initEndpoint(properties);
+        Optional.ofNullable(username).ifPresent(data-> properties.setProperty(PropertyKeyConst.USERNAME, data));
+        Optional.ofNullable(password).ifPresent(data-> properties.setProperty(PropertyKeyConst.PASSWORD, data));
+        Optional.ofNullable(accessKey).ifPresent(data-> properties.setProperty(PropertyKeyConst.ACCESS_KEY, data));
+        Optional.ofNullable(secretKey).ifPresent(data-> properties.setProperty(PropertyKeyConst.SECRET_KEY, data));
+
+        InitUtils.initEndpoint(properties);
 
         namingService = NamingFactory.createNamingService(properties);
     }
