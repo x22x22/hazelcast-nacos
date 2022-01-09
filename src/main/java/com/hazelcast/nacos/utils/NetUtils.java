@@ -1,9 +1,15 @@
-package cn.sunline.edsp.domain.util;
+package com.hazelcast.nacos.utils;
 
-import org.springframework.util.StringUtils;
+import com.sun.istack.internal.Nullable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 /**
@@ -52,11 +58,27 @@ public class NetUtils {
      */
     public static boolean isLOAddress(String host) {
         try {
-            return StringUtils.hasText(host)
+            return NetUtils.hasText(host)
                     && isLOAddress(InetAddress.getByName(host));
         } catch (UnknownHostException e) {
             return false;
         }
+    }
+
+
+
+    public static boolean hasText(@Nullable String str) {
+        return (str != null && !str.isEmpty() && NetUtils.containsText(str));
+    }
+
+    private static boolean containsText(CharSequence str) {
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -80,7 +102,7 @@ public class NetUtils {
      * @param timeoutMillis
      * @return
      */
-    public static InetAddress getAvailableAddress(String host, int port, int timeoutMillis) {
+    public static InetAddress getAvailableAddress(String host, int port, int timeoutMillis) throws IOException {
         return getAvailableAddress(new InetSocketAddress(host, port), timeoutMillis);
     }
 
@@ -90,12 +112,10 @@ public class NetUtils {
      * @param timeoutMillis
      * @return
      */
-    public static InetAddress getAvailableAddress(InetSocketAddress targetAddress, int timeoutMillis) {
+    public static InetAddress getAvailableAddress(InetSocketAddress targetAddress, int timeoutMillis) throws IOException {
         try (Socket socket = new Socket()) {
             socket.connect(targetAddress, timeoutMillis);
             return socket.getLocalAddress();
-        } catch (IOException e) {
-            return null;
         }
     }
 

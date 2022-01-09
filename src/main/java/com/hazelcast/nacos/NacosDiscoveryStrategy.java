@@ -20,6 +20,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.alibaba.nacos.client.naming.utils.InitUtils;
 import com.hazelcast.cluster.Address;
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.spi.discovery.AbstractDiscoveryStrategy;
@@ -100,6 +101,18 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
         String namespace = getOrDefault(NacosDiscoveryProperties.NAMESPACE,
                 Optional.ofNullable(System.getenv("NACOS_REGISTRY_NAMESPACE"))
                         .orElse(DEFAULT_NAMESPACE));
+        String username = getOrDefault(NacosDiscoveryProperties.USERNAME,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_USERNAME"))
+                        .orElse(null));
+        String password = getOrDefault(NacosDiscoveryProperties.PASSWORD,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_PASSWORD"))
+                        .orElse(null));
+        String accessKey = getOrDefault(NacosDiscoveryProperties.ACCESS_KEY,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_ACCESS_KEY"))
+                        .orElse(null));
+        String secretKey = getOrDefault(NacosDiscoveryProperties.SECRET_KEY,
+                Optional.ofNullable(System.getenv("NACOS_REGISTRY_SECRET_KEY"))
+                        .orElse(null));
 
         clusterName = getOrDefault(NacosDiscoveryProperties.CLUSTER_NAME,
                 Optional.ofNullable(System.getenv("NACOS_CLUSTER_NAME"))
@@ -120,6 +133,12 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
         Properties properties = new Properties();
         properties.setProperty(PropertyKeyConst.SERVER_ADDR, serverAddr);
         properties.setProperty(PropertyKeyConst.NAMESPACE, namespace);
+        properties.setProperty(PropertyKeyConst.USERNAME, username);
+        properties.setProperty(PropertyKeyConst.PASSWORD, password);
+        properties.setProperty(PropertyKeyConst.ACCESS_KEY, accessKey);
+        properties.setProperty(PropertyKeyConst.SECRET_KEY, secretKey);
+
+        String s = InitUtils.initEndpoint(properties);
 
         namingService = NamingFactory.createNamingService(properties);
     }

@@ -55,6 +55,11 @@ public final class NacosDiscoveryProperties {
      */
     public static final PropertyDefinition CLUSTER_NAME = property("cluster_name", STRING);
 
+    public static final PropertyDefinition USERNAME = property("username", STRING);
+    public static final PropertyDefinition PASSWORD = property("password", STRING);
+    public static final PropertyDefinition ACCESS_KEY = property("access_key", STRING);
+    public static final PropertyDefinition SECRET_KEY = property("secret_key", STRING);
+
 
     private NacosDiscoveryProperties() {
     }

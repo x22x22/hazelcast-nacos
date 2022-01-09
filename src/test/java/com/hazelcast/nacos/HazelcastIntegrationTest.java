@@ -4,6 +4,13 @@ import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryStrategyConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.hazelcast.nacos.utils.FindAvailableNacosServer;
+import com.hazelcast.nacos.utils.NetUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,6 +45,13 @@ public class HazelcastIntegrationTest {
         Config config = new Config();
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
         config.setProperty("hazelcast.discovery.enabled", "true");
+        Collection<String> strings = new ArrayList<>();
+//        strings.add("10.18.31.*");
+//        config.getNetworkConfig().getInterfaces().setInterfaces(strings);
+//        config.getNetworkConfig().getInterfaces().setEnabled(true);
+        String nacosServers =  System.getenv("NACOS_REGISTRY_SERVER_ADDR_TEST");
+        String ip = FindAvailableNacosServer.getIp(nacosServers);
+        config.getNetworkConfig().setPublicAddress(ip);
 
         DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(new NacosDiscoveryStrategyFactory());
         discoveryStrategyConfig.addProperty(NacosDiscoveryProperties.SERVER_ADDR.key(), System.getenv("NACOS_REGISTRY_SERVER_ADDR_TEST"));
