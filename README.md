@@ -155,7 +155,7 @@ HazelcastClient.newHazelcastClient(config);
 
 ## Compatibilities
 
-- `nacos-client-1.3.2` has been tested with Nacos 1.3.2 and Nacos 2.0
+- `nacos-client-2.2.4` has been tested with Nacos 1.3.2 and Nacos 2.0
 
 ### Known Issues
 There is an issue between Nacos and curator client in some versions. You may get `Received packet at server of unknown type 15` error.
