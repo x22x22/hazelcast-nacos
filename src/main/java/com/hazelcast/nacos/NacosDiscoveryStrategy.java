@@ -20,6 +20,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import com.alibaba.nacos.client.env.NacosClientProperties;
 import com.alibaba.nacos.client.naming.utils.InitUtils;
 import com.hazelcast.cluster.Address;
 import com.hazelcast.logging.ILogger;
@@ -116,7 +117,7 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
 
         clusterName = getOrDefault(NacosDiscoveryProperties.CLUSTER_NAME,
                 Optional.ofNullable(System.getenv("NACOS_CLUSTER_NAME"))
-                .orElse(DEFAULT_CLUSTER_NAME));
+                        .orElse(DEFAULT_CLUSTER_NAME));
 
         applicationName = getOrDefault(NacosDiscoveryProperties.APPLICATION_NAME,
                 System.getenv("HZ_APPLICATION_NAME"));
@@ -139,7 +140,14 @@ public class NacosDiscoveryStrategy extends AbstractDiscoveryStrategy {
         Optional.ofNullable(accessKey).ifPresent(data-> properties.setProperty(PropertyKeyConst.ACCESS_KEY, data));
         Optional.ofNullable(secretKey).ifPresent(data-> properties.setProperty(PropertyKeyConst.SECRET_KEY, data));
 
-        InitUtils.initEndpoint(properties);
+        NacosClientProperties prototype = NacosClientProperties.PROTOTYPE;
+        properties.entrySet().forEach(objectObjectEntry -> {
+            Object key = objectObjectEntry.getKey();
+            Object value = objectObjectEntry.getValue();
+            prototype.setProperty((String) key,(String)value);
+        });
+
+        InitUtils.initEndpoint(prototype);
 
         namingService = NamingFactory.createNamingService(properties);
     }

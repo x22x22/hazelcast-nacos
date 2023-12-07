@@ -40,6 +40,10 @@ public class NacosDiscoveryStrategyFactory implements DiscoveryStrategyFactory {
         propertyDefinitions.add(NacosDiscoveryProperties.NAMESPACE);
         propertyDefinitions.add(NacosDiscoveryProperties.CLUSTER_NAME);
         propertyDefinitions.add(NacosDiscoveryProperties.APPLICATION_NAME);
+        propertyDefinitions.add(NacosDiscoveryProperties.USERNAME);
+        propertyDefinitions.add(NacosDiscoveryProperties.PASSWORD);
+        propertyDefinitions.add(NacosDiscoveryProperties.ACCESS_KEY);
+        propertyDefinitions.add(NacosDiscoveryProperties.SECRET_KEY);
         PROPERTY_DEFINITIONS = Collections.unmodifiableCollection(propertyDefinitions);
     }
 
